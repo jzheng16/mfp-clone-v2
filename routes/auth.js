@@ -97,44 +97,43 @@ router.post('/changepassword', (req, res) => {
 
 // Login
 
-router.post('/login', (req, res, next) => {
-  User.findOne({ where: { email: req.body.email } })
-    .then(user => {
-      if (!user) {
-        console.log('No such user found:', req.body.email);
-        res.status(401).send('Wrong username and/or password');
-      } else if (!user.correctPassword(req.body.password)) {
-        console.log('Incorrect password for user:', req.body.email);
-        res.status(401).send('Wrong username and/or password');
-      } else {
-        req.login(user, err => (err ? next(err) : res.json(user)));
-      }
-    })
-    .catch(next);
+router.post('/login', async (req, res, next) => {
+  console.log('req.body', req.body);
+  try {
+    const user = await User.findOne({ where: { email: req.body.email } });
+    console.log("user login", user);
+    if (!user) {
+      console.log('No such user found:', req.body.email);
+      return res.status(401).send('Wrong username and/or password');
+    }
+    const match = await user.correctPassword(req.body.password);
+    if (!match) {
+      console.log('Incorrect password for user:', req.body.email);
+      return res.status(401).send('Wrong username and/or password');
+    }
+
+    req.login(user, err => (err ? next(err) : res.json(user)));
+  } catch (err) {
+    next(err);
+  }
 });
 
 // Route for sign-up TODO: Why req.login?
-router.post('/signup', (req, res, next) => {
-  User.create(req.body)
-    .then(user => {
-      if (user) {
-        console.log(user.id);
-        Goal.create({ user_id: user.id })
-          .then(() => req.login(user, err => (err ? next(err) : res.json(user))))
-          .catch(err => console.log('err creating goal during signup', err));
-      }
-    })
-    .catch(err => {
-      if (err.name === 'SequelizeUniqueConstraintError') {
-        res.status(401).send('E-mail already exists');
-      } else {
-        next(err);
-      }
-    });
-});
-
-router.get('/test', (req, res) => {
-  res.status(200).json('hello');
+router.post('/signup', async (req, res, next) => {
+  try {
+    const user = await User.create(req.body);
+    if (user) {
+      console.log('Successfully created user with id:', user.id);
+      await Goal.create({ user_id: user.id });
+      req.login(user, err => (err ? next(err) : res.json(user)));
+    }
+  } catch (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      res.status(401).send('E-mail already exists');
+    } else {
+      next(err);
+    }
+  }
 });
 
 // Create route to fetch the logged in user. This route will be hit every time a user accesses our page

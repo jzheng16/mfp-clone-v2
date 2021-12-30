@@ -2,87 +2,83 @@
 const db = require('..');
 const Sequelize = require('sequelize');
 const crypto = require('crypto');
+const bcrypt = require("bcrypt");
 
 // TODO: Define constraints 
 
 const User = db.define(
   'users', {
-    email: {
-      type: Sequelize.STRING,
-      unique: true
-    },
-    password: {
-      type: Sequelize.STRING,
-      /* By making password a function, you are basically setting it private with closure.
-        When querying, it will show only as a function and not plaintext
-      */
-      get() {
-        return () => this.getDataValue('password');
-      }
-    },
-    salt: {
-      type: Sequelize.STRING,
-      get() {
-        return () => this.getDataValue('salt');
-      }
-    },
-    first_name: {
-      type: Sequelize.STRING
-    },
-    last_name: {
-      type: Sequelize.STRING
-    },
-    weight: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER)
-    },
-    avatarUrl: {
-      type: Sequelize.STRING,
-      allowNull: true
-    },
-    age: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    height: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    gender: {
-      type: Sequelize.ENUM('M', 'F'),
-      allowNull: true
-    },
-    verified: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false
+  email: {
+    type: Sequelize.STRING,
+    unique: true
+  },
+  password: {
+    type: Sequelize.STRING,
+    /* By making password a function, you are basically setting it private with closure.
+      When querying, it will show only as a function and not plaintext
+    */
+    get() {
+      return () => this.getDataValue('password');
     }
-
-
+  },
+  // salt: {
+  //   type: Sequelize.STRING,
+  //   get() {
+  //     return () => this.getDataValue('salt');
+  //   }
+  // },
+  first_name: {
+    type: Sequelize.STRING
+  },
+  last_name: {
+    type: Sequelize.STRING
+  },
+  weight: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER)
+  },
+  avatarUrl: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  age: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  height: {
+    type: Sequelize.INTEGER,
+    allowNull: true
+  },
+  gender: {
+    type: Sequelize.ENUM('M', 'F'),
+    allowNull: true
+  },
+  verified: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
+
+
+}
 );
 
 module.exports = User;
 
-User.prototype.correctPassword = function (candidatePwd) {
-  return User.encryptPassword(candidatePwd, this.salt()) === this.password();
+User.prototype.correctPassword = async function (password) {
+  const match = await bcrypt.compare(password, this.password());
+  return match;
 };
 
-User.generateSalt = function () {
-  return crypto.randomBytes(16).toString('base64')
-};
 
-User.encryptPassword = function (plainText, salt) {
-  return crypto
-    .createHash('RSA-SHA256')
-    .update(plainText)
-    .update(salt)
-    .digest('hex')
+User.encryptPassword = function (plainText) {
+  return bcrypt
+    .hash(plainText, 10)
 };
 
 // Hooks to salt and hash password. Only do it if the password has been set or 'changed'
-const setSaltAndPassword = user => {
+const setSaltAndPassword = async user => {
+  console.log('salt running...', user);
   if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt());
+    user.password = await User.encryptPassword(user.password());
   }
 };
 
