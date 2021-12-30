@@ -1,0 +1,105 @@
+/* a {
+  color: black;
+  margin: auto;
+}
+
+.active{
+  font-weight: bold;
+}
+
+.someList {
+  color: red;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;  can also do repeat(4, 1fr) 
+  grid-template-rows: 2fr 2fr 2fr;
+  height: 100%;
+}
+
+.nav {
+  grid-column: 1/4; 
+  grid-row: 1/2;
+}
+
+#navhome {
+  padding-right: 20px;
+}
+
+.routes{
+  grid-column: 1/4;
+  grid-row:  2/7;
+
+}
+
+.home{
+  grid-column: 1/4;
+  grid-row: 2/7;
+  text-align: center;
+  background-image: url('maxresdefault.jpg');
+  height: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.signup{
+  border:#f2f2f2;
+  padding: 20px;
+}
+
+#email, #password {
+  width: 100%;
+  border-style: solid;
+  border-radius: 4px;
+  display: inline-block;
+  padding: 12px 20px;
+
+}
+
+#signupButton {
+  background-color: green;
+
+}
+
+#logout {
+  border:none;
+  margin-left: 80%;
+ 
+}
+
+.goal-list {
+
+  list-style-type: none;
+
+}
+
+#update-goal {
+  color: green;
+}
+
+.addFood {
+  column-count: 2;
+  column-width: auto;
+}
+
+ .diary {
+  column-count: 2;
+  column-width: auto;
+} 
+ .displayFoods {
+  column-count: 1;
+  column-width: auto;
+} 
+
+.displayStats {
+  column-count: 4;
+  column-width: auto;
+} 
+*/
+
+/* useful for debugging * {
+  background: #000 !important;
+  color: #0f0 !important;
+  outline: solid #f00 1px !important;
+} */
