@@ -1,53 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Ul, List } from './StyledComponents';
+import { IconAward } from '@tabler/icons';
 
 const FooterWrapper = styled.footer`
   background: #242729;
-  height: auto;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-  justify-content: center;
 `;
 
 const StyledCopyright = styled.p`
-  grid-column: 1/2;
   color: #848d95;
-  
+  margin: 0 1em 0 0;
 `;
 
 StyledCopyright.displayName = 'StyledCopyright';
 
 const LinkWrapper = styled.div`
-  grid-column: 2/4;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   align-items: center;
   justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 60px;
+  
 `;
 const StyledFooterLink = styled(Link)` 
   color: #848d95;
   margin-right: 1em;
   text-decoration: none;
   text-align: center;
-  
+
 `;
 
 const Footer = () => {
   const year = new Date().getFullYear();
   return (
-  <FooterWrapper>
-    <StyledCopyright> &#169; {year} Joey Zheng </StyledCopyright>
-    <LinkWrapper>
-      <StyledFooterLink to="/about"> About </StyledFooterLink>
-      <StyledFooterLink to="/contact"> Contact </StyledFooterLink>
-      <StyledFooterLink to="/feedback"> Feedback </StyledFooterLink>
-    </LinkWrapper>
-  </FooterWrapper>
+    <FooterWrapper>
+      <LinkWrapper>
+        <StyledCopyright>&#169; {year} Joey Zheng</StyledCopyright>
+        <StyledFooterLink to="/about">About</StyledFooterLink>
+        <StyledFooterLink to="/contact">Contact</StyledFooterLink>
+        <StyledFooterLink to="/feedback">Feedback</StyledFooterLink>
+      </LinkWrapper>
+    </FooterWrapper>
   )
-  };
+};
 
 export default Footer;
 

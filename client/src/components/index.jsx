@@ -6,7 +6,6 @@
 
 export { default as AddFood } from './AddFood';
 export { default as SignUpGoal } from './SignUpGoal';
-export { default as Goal } from './Goal';
 export { default as Diary } from './Diary';
 export { default as SearchFood } from './SearchFood';
 export { default as ListFoods } from './ListFoods';

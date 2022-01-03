@@ -70,3 +70,8 @@ export const ListItem = styled.div`
 export const Label = styled.label`
   
 `;
+
+export const Separator = styled.div`
+  height: 2px;
+  background-color: #e6e6e6;
+`

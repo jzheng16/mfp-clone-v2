@@ -29,7 +29,7 @@ const HomeImage = styled.img`
 const Title = styled.h3`
   position: absolute;
   bottom: 40px;
-  left: 10px;
+  left: 30px;
   margin: 0;
   font-size: 1.6rem;
   color: white;
@@ -50,8 +50,6 @@ const HomeMainContent = styled.div`
 
 /* TODO: Experiment with float and have the text wrap around it */
 const ProfileImage = styled.img`
-  grid-column: 1/2;
-  grid-row: 1/2;
   width: 100%;
   
   height: auto;
@@ -60,8 +58,6 @@ const ProfileImage = styled.img`
 
 `;
 const MiscInfo = styled.p`
-  grid-column: 2/3;
-  grid-row: 1/2;
   text-align: left;
   font-size: 20px;
   font-family: serif;

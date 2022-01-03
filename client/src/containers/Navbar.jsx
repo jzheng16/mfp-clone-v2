@@ -13,7 +13,7 @@ const styles = {
     height: '26px',
     left: '36px',
     top: '36px',
-  
+
   },
   bmBurgerBars: { background: '#373a47' },
   bmCrossButton: {
@@ -21,12 +21,12 @@ const styles = {
     width: '24px'
   },
   bmCross: { background: '#bdc3c7' },
-  bmMenuWrap: {width: '300px'},
+  bmMenuWrap: { width: '300px' },
   bmMenu: {
     background: '#373a47',
     padding: '2.5em 1.5em',
     fontSize: '1.15em',
-   
+
   },
 
   bmItemList: {
@@ -44,6 +44,7 @@ const NavbarWrapper = styled.div`
   background-color: #0070BF;
   width: 100%;
   height: 100px;
+  margin-bottom: 2em;
 `;
 
 const StyledNav = styled.nav`
