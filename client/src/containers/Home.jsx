@@ -18,6 +18,7 @@ const HomeContainer = styled.div`
 
 const HeroSection = styled.section`
   position: relative;
+  margin-top: -28px;
 
 `
 const HomeImage = styled.img`

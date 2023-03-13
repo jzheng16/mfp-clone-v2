@@ -68,8 +68,9 @@ const InputToggleContainer = styled.div`
   justify-content: space-between;
   margin-left: auto;
   &&& input {
-    padding: 6px 10px;
-    width: 60px;
+    padding: 6px 2px 6px 6px;
+    width: 70px;
+    /* text-align: right; */
   }
   > span {
     margin-left: 5px;
@@ -86,9 +87,11 @@ const UpdateButton = styled(Button)`
 const Goal = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [weightUnit, setWeightUnit] = useState('lbs');
-
   const { goal } = useSelector(state => state.goal);
   const { user } = useSelector(state => state.auth);
+  const [formGoal, setFormGoal] = useState(goal);
+  console.log('formgoal', formGoal);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -98,9 +101,12 @@ const Goal = () => {
 
 
   const toggleEditing = () => {
-    // setState is asynchronous so if next state depends on previous state, always use prevState
-    // React can also batch setState calls
     setIsEditing((prevState) => ({ isEditing: !prevState.isEditing }));
+  }
+
+  const handleOnChange = (e) => {
+    console.log(formGoal);
+    setFormGoal((prevState) => ({ ...prevState, [e.target.name]: e.target.value }));
   }
 
   const handleGoalUpdate = e => {
@@ -134,18 +140,24 @@ const Goal = () => {
           <label htmlFor="weight">Weight</label>
           <InputToggleContainer>
             {isEditing ? <Input
+              type="number"
               id="weight"
-              value={goal.weight}
+              name="weight"
+              value={formGoal.weight}
+              onChange={handleOnChange}
             /> : (goal.weight || 0)}
             <span>{weightUnit}</span>
           </InputToggleContainer>
         </InputContainer>
         <InputContainer>
-          <label htmlFor="calories">Calories</label>
+          <label htmlFor="calorie">Calories</label>
           <InputToggleContainer>
             {isEditing ? <Input
-              id="calories"
-              value={goal.calories}
+              type="number"
+              name="calorie"
+              id="calorie"
+              value={formGoal.calories}
+              onChange={handleOnChange}
             /> : (goal.calorie || 0)}
             <span>kcals</span>
           </InputToggleContainer>
@@ -154,8 +166,11 @@ const Goal = () => {
           <label htmlFor="carbs">Carbohydrates</label>
           <InputToggleContainer>
             {isEditing ? <Input
+              type="number"
               id="carbs"
-              value={goal.carbs}
+              name="carbs"
+              value={formGoal.carbs}
+              onChange={handleOnChange}
             /> : (goal.carbs || 0)}
             <span>g</span>
           </InputToggleContainer>
@@ -164,8 +179,11 @@ const Goal = () => {
           <label htmlFor="protein">Protein</label>
           <InputToggleContainer>
             {isEditing ? <Input
+              type="number"
               id="protein"
-              value={goal.protein}
+              name="protein"
+              value={formGoal.protein}
+              onChange={handleOnChange}
             /> : (goal.protein || 0)}
             <span>g</span>
           </InputToggleContainer>
@@ -174,8 +192,11 @@ const Goal = () => {
           <label htmlFor="fat">Fats</label>
           <InputToggleContainer>
             {isEditing ? <Input
+
               id="fat"
-              value={goal.fat}
+              name="fat"
+              value={formGoal.fat}
+              onChange={handleOnChange}
             /> : (goal.fat || 0)}
             <span>g</span>
           </InputToggleContainer>

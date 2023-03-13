@@ -1,8 +1,8 @@
-export { default as Home} from './Home';
+export { default as Home } from './Home';
 export { default as SignUpContainer } from './SignUpContainer';
 export { default as SignUpGoalContainer } from './SignUpGoalContainer';
 export { default as Navbar } from './Navbar';
-export { default as GoalContainer } from './GoalContainer';
+export { default as Goal } from './Goal';
 export { default as DiaryContainer } from './DiaryContainer';
 export { default as InitialGoalContainer } from './InitialGoalContainer';
 export { default as ProfileSettingsContainer } from './ProfileSettingsContainer';

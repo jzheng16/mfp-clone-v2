@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 // Container Components
 import {
-  FoodContainer, Login, SignUpContainer, Home, GoalContainer, DiaryContainer,
+  FoodContainer, Login, SignUpContainer, Home, Goal, DiaryContainer,
   InitialGoalContainer, ProfileSettingsContainer, VerificationContainer, SignUpGoalContainer,
   MeasurementContainer
 } from './containers';
@@ -26,43 +26,43 @@ const BodyWrapper = styled.main`
 
 
 const Routes = () => {
-  const {user} = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchingUser());
   }, [dispatch])
 
 
-    return (
-      <BodyWrapper>
-        {user.id ?
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/verification" component={VerificationContainer} />
-            <Route exact path="/me" component={ProfileSettingsContainer} />
-            <Route exact path="/addFood" component={FoodContainer} />
-            <Route exact path="/diary" component={DiaryContainer} />
-            <Route exact path="/goal" component={GoalContainer} />
-            <Route exact path="/goal/plan" component={InitialGoalContainer} />
-            <Route exact path="/signup-step2" component={SignUpGoalContainer} />
-            <Route exact path="/measurement" component={MeasurementContainer} />
-            <Route component={NotFound} />
-          </Switch>
-          :
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/signup" component={SignUpContainer} />
-            <Route exact path="/signup-step1" component={SignUpContainer} />
-            <Route exact path="/signup-step2" component={SignUpGoalContainer} />
-            <Route component={NotFound} />
+  return (
+    <BodyWrapper>
+      {user.id ?
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/verification" component={VerificationContainer} />
+          <Route exact path="/me" component={ProfileSettingsContainer} />
+          <Route exact path="/addFood" component={FoodContainer} />
+          <Route exact path="/diary" component={DiaryContainer} />
+          <Route exact path="/goal" component={Goal} />
+          <Route exact path="/goal/plan" component={InitialGoalContainer} />
+          <Route exact path="/signup-step2" component={SignUpGoalContainer} />
+          <Route exact path="/measurement" component={MeasurementContainer} />
+          <Route component={NotFound} />
+        </Switch>
+        :
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/signup" component={SignUpContainer} />
+          <Route exact path="/signup-step1" component={SignUpContainer} />
+          <Route exact path="/signup-step2" component={SignUpGoalContainer} />
+          <Route component={NotFound} />
 
-          </Switch>
-        }
-      </BodyWrapper>
-    );
-  
+        </Switch>
+      }
+    </BodyWrapper>
+  );
+
 }
 
 export default withRouter((Routes));
